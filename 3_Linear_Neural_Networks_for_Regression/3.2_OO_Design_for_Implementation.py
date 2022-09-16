@@ -27,7 +27,7 @@ class B(d2l.HyperParameters):
 B(1,2,3)
 
 # 2. Draw
-#TODO: Animation
+
 board = d2l.ProgressBoard('x')
 for x in np.arange(0, 10, 0.1):
     board.draw(x, np.sin(x), 'sin', every_n=2)
