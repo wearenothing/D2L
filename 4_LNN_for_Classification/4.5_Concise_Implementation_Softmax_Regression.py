@@ -1,4 +1,3 @@
-import torch
 from d2l import torch as d2l
 from torch import nn
 from torch.nn import functional as F
