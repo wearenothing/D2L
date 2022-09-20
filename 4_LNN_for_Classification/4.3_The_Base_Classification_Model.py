@@ -13,9 +13,9 @@ def configure_optimizer(self):
 
 @d2l.add_to_class(Classifier)
 def accuracy(self, Y_hat, Y, averaged=True):
-    Y_hat = Y_hat.reshape(-1,Y_hat.shape[-1])
-    preds = Y_hat.argmax(axis=1).type(Y.dtype)
-    compare = (preds == Y.reshape(-1)).type(torch.float32)
-    return compare.mean() if averaged else compare
+    Y_hat = Y_hat.reshape(-1,Y_hat.shape[-1])   # Assume the last dimension stores prediction scores for each class
+    preds = Y_hat.argmax(axis=1).type(Y.dtype)  # dtype: data type, set the data type of preds as the same as Y
+    compare = (preds == Y.reshape(-1)).type(torch.float32) # convert bool type to torch.float32 type
+    return compare.mean() if averaged else compare  # if averaged is True, Compute mean
 
 
