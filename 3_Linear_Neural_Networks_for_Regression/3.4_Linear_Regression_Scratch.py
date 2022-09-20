@@ -68,5 +68,3 @@ print(f'error in estimating w: {data.w - model.w.reshape(data.w.shape)}')
 print(f'error in estimating b: {data.b - model.b}')
 d2l.plt.show()
 
-
-
