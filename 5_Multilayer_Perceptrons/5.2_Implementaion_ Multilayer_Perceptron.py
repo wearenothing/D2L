@@ -15,13 +15,31 @@ class MLPScratch(d2l.Classifier):
 #     a = torch.zeros_like(X)
 #     return torch.max(X,a)
 
-d2l.add_to_class(MLPScratch)
+@d2l.add_to_class(MLPScratch)
 def forward(self,X):
     X = X.reshape(-1,self.num_inputs)
     H = torch.relu(X @ self.w1 + self.b1)
     return H @ self.w2 + self.b2
 
-model = MLPScratch(num_inputs=784, num_outputs=10, num_hiddens=256, lr=0.1)
+# model = MLPScratch(num_inputs=784, num_outputs=10, num_hiddens=256, lr=0.1)
+# data = d2l.FashionMNIST(batch_size=256)
+# trainer = d2l.Trainer(max_epochs=10)
+# trainer.fit(model,data)
+# d2l.plt.show()
+
+class MLP(d2l.Classifier):
+    def __init__(self,num_inputs,num_outputs,num_hiddens,lr):
+        super(MLP, self).__init__()
+        self.save_hyperparameters()
+        self.net = nn.Sequential(nn.Linear(num_inputs,num_hiddens),nn.ReLU(),nn.Linear(num_hiddens,num_outputs))
+
+@d2l.add_to_class(MLP)
+def forward(self,X):
+    X = X.reshape(-1,self.num_inputs)
+    return self.net(X)
+
+
+model = MLP(num_inputs=784, num_outputs=10, num_hiddens=256, lr=0.1)
 data = d2l.FashionMNIST(batch_size=256)
 trainer = d2l.Trainer(max_epochs=10)
 trainer.fit(model,data)
