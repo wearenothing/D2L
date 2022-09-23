@@ -15,7 +15,7 @@ class MLPScratch(d2l.Classifier):
 #     a = torch.zeros_like(X)
 #     return torch.max(X,a)
 
-d2l.add_to_class(MLPScratch)
+@d2l.add_to_class(MLPScratch)
 def forward(self,X):
     X = X.reshape(-1,self.num_inputs)
     H = torch.relu(X @ self.w1 + self.b1)
@@ -26,3 +26,5 @@ data = d2l.FashionMNIST(batch_size=256)
 trainer = d2l.Trainer(max_epochs=10)
 trainer.fit(model,data)
 d2l.plt.show()
+
+
