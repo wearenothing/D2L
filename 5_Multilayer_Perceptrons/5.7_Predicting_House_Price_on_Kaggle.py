@@ -44,6 +44,7 @@ def preprocess(self):
     self.val = features[self.raw_train.shape[0]:].copy()
 
 
+
 data.preprocess()
 print(data.train.shape)
 # print(data.label.shape)
@@ -65,7 +66,22 @@ X,y = next(iter(data.get_dataloader(train=True)))
 print(f'shape of X:{X.shape},shape of y:{y.shape}')
 
 # 2.K-Fold Cross-Validation
+def k_fold_data(data, k):
+    rets = []
+    fold_size = data.train.shape[0] // k
+    for j in range(k):
+        idx = range(j*fold_size,(j+1)*fold_size)
+        rets.append(KaggleHouse(data.batch_size, data.train.drop(index=idx),data.train.loc[idx]))   #???
+    return rets
 
+def k_fold(trainer, data, k , lr):
+    val_loss, models = [],[]
+    for i,data_fold in enumerate(k_fold_data(data,k)):
+        model = d2l.LinearRegression(lr)
+        model.board.yscale = 'log'
+        if i!=0 : model.board.display = False
+        trainer.fit(model, data_fold)
+        val_loss.append(float)
 # 3.Training
 model = d2l.LinearRegression(lr=0.01)
 trainer = d2l.Trainer(max_epochs=10)
