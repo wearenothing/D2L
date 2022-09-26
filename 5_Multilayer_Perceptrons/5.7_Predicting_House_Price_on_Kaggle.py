@@ -81,9 +81,13 @@ def k_fold(trainer, data, k , lr):
         model.board.yscale = 'log'
         if i!=0 : model.board.display = False
         trainer.fit(model, data_fold)
-        val_loss.append(float)
+        val_loss.append(float(model.board.data['val_loss'][-1].y))
+        models.append(model)
+    print(f'average validation log mse = {sum(val_loss)/len(val_loss)}')
+    return models
 # 3.Training
-model = d2l.LinearRegression(lr=0.01)
+
 trainer = d2l.Trainer(max_epochs=10)
-trainer.fit(model, data)
+models = k_fold(trainer,data,5,0.01)
+# trainer.fit(models, data)
 d2l.plt.show()
