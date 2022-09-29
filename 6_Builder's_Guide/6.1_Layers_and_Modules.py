@@ -23,6 +23,7 @@ class MLP(nn.Module):
 net = MLP()
 print(net(X).shape)
 
+
 # 2.The Sequential Module
 class MySequential(nn.Module):
     def __init__(self, *args):
